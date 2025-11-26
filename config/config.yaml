@@ -1,0 +1,21 @@
+system:
+  version: "0.2.0"
+  env: "development"
+
+pipeline:
+  mode: "BALANCED"          # VERIFICATION | CREATIVE | BALANCED
+  max_iterations: 100
+  confidence_threshold: 0.75
+  success_threshold: 0.85
+
+integrations:
+  x_platform: false
+
+logging:
+  level: "INFO"
+  format: "%(asctime)s %(levelname)s %(name)s :: %(message)s"
+
+quantum:
+  max_fibonacci_n: 55
+  matrix_weights: [3, 4, 7, 7, 4, 3]
+  alpha_schedule: [0.10, 0.20, 0.35, 0.50, 0.35, 0.20, 0.10]

@@ -1,0 +1,35 @@
+version: "3.8"
+
+services:
+  spiral:
+    build: .
+    volumes:
+      - ./config:/app/config:ro
+      - ./data:/app/data
+    environment:
+      - PYTHONUNBUFFERED=1
+    command: ["--text", "Sample pipeline input from Docker"]
+
+  spiral-dev:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app
+      - /app/.git  # Exclude git directory
+    environment:
+      - PYTHONUNBUFFERED=1
+    command: ["--text", "Development mode test"]
+    profiles: ["dev"]
+
+  spiral-batch:
+    build: .
+    volumes:
+      - ./config:/app/config:ro
+      - ./data:/app/data
+      - ./batch_inputs.json:/app/inputs.json:ro
+    command: ["--batch", "inputs.json", "--format", "json"]
+    profiles: ["batch"]
+
+volumes:
+  data:
